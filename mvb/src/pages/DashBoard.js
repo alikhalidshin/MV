@@ -30,7 +30,6 @@ import News from "./dashboardC/News"
 import Navbar from './MainC/Navbar';
 import Sidebar from './MainC/Sidebar';
 import 'bootstrap/dist/css/bootstrap.min.css'; // أولاً
-import "../App.css"
 export default class DashBoard extends Component {
   static propTypes = {
     prop: PropTypes
@@ -39,11 +38,13 @@ export default class DashBoard extends Component {
   render() {
     return (
       
-        <div style={{
-        height:"100vh",
-        background:"#f9fbfc",
-      }} className='p-4 bg-light' >
-        <Row  className='bg-light'>
+        <div  className='' >
+        <Row style={{
+          
+   
+          background: "hsl(246, 76%, 95%, 10%);",
+  
+            }} >
           <Sidebar active={"Dashboard"} />
           <Col
           

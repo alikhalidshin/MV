@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import "C:/Users/shina/OneDrive/Desktop/mvb/mvb/src/App.css"
+import React, { Component } from "react";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 class ContactForm extends Component {
   render() {
     return (
@@ -15,7 +14,9 @@ class ContactForm extends Component {
                   required
                   className="input-text js-input"
                 />
-                <label className="label" htmlFor="name">Client name</label>
+                <label className="label" htmlFor="name">
+                  Client name
+                </label>
               </Col>
               <Col lg={6} className="form-field">
                 <Form.Control
@@ -24,7 +25,9 @@ class ContactForm extends Component {
                   required
                   className="input-text js-input"
                 />
-                <label className="label" htmlFor="email">City and distance </label>
+                <label className="label" htmlFor="email">
+                  City and distance{" "}
+                </label>
               </Col>
               <Col lg={6} className="form-field">
                 <Form.Control
@@ -33,7 +36,9 @@ class ContactForm extends Component {
                   required
                   className="input-text js-input"
                 />
-                <label className="label" htmlFor="company">sector</label>
+                <label className="label" htmlFor="company">
+                  sector
+                </label>
               </Col>
               <Col lg={6} className="form-field">
                 <Form.Control
@@ -42,7 +47,9 @@ class ContactForm extends Component {
                   required
                   className="input-text js-input"
                 />
-                <label className="label" htmlFor="phone">crm erp integration</label>
+                <label className="label" htmlFor="phone">
+                  crm erp integration
+                </label>
               </Col>
               <Col lg={12} className="form-field">
                 <Form.Control
@@ -51,10 +58,14 @@ class ContactForm extends Component {
                   required
                   className="input-text js-input"
                 />
-                <label className="label" htmlFor="message">bank account</label>
+                <label className="label" htmlFor="message">
+                  bank account
+                </label>
               </Col>
               <Col lg={12} className="form-field text-center">
-                <Button type="submit" className="submit-btn">Submit</Button>
+                <Button type="submit" className="submit-btn">
+                  Submit
+                </Button>
               </Col>
             </Row>
           </Form>

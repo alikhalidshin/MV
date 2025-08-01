@@ -13,7 +13,9 @@ import Creddit from './pages/Creddit';
 import Clients from "./pages/Allclients"
 import 'bootstrap/dist/css/bootstrap.min.css'; // أولاً
 import './App.css'; // ثانياً – هذا يتقدم على Bootstrap
-
+import How from './pages/Howitworks';
+import About from './pages/About';
+import Login from './pages/login';
 export default class App extends Component {
   static propTypes = {
     prop: PropTypes
@@ -23,7 +25,12 @@ export default class App extends Component {
       <div>
         <BrowserRouter>
                 <Routes>
-                      <Route  element={<Express />} path='/express' ></Route>
+
+                      <Route  element={<Home />} path='/' ></Route>
+                      <Route  element={<Login />} path='/login' ></Route>
+                      <Route  element={<About />} path='/About' ></Route>
+                      <Route  element={<How />} path='/How' ></Route>
+                      <Route  element={<Form />} path='/f' ></Route>
                       <Route  element={<Creddit/>} path='/Creddit' ></Route>
                       <Route element={<Clients />} path='/Client'></Route>
                       <Route element={<DashBoard/>} path="/Dashboard"/>                                    </Routes>

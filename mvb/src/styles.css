@@ -2,6 +2,11 @@ div{
     background-color:"#fcfafa";
       color:"#070303";
 }
+:where(h1) {
+  font-size: 2rem;
+  color: darkblue;
+}
+
 button{
       background-color:"#ab615f";
       

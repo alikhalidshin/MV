@@ -9,25 +9,25 @@ class Trend extends Component {
         className=" shadow p-3 m-4 bg-body-tertiary rounded  "
         style={{ backgroundColor: "white" }}>
     <h1>
-        Trends
+        Revenume & Profits
     </h1>
 <LineChart
   xAxis={[
     {
-      data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      data: ['2019', '2019', '2020', '2021', '2022', '2023', '2025'],
       scaleType: 'point',
     },
   ]}
   series={[
     {
-      data: [5, 7, 3, 6, 9, 2, 8, 5, 6, 7, 4, 6],
-      label: 'Data A',
+      data: [8, 9, 6, 6, 9, 8, 10, 6, 6, 7, 9, 6].sort(),
+      label: 'Revuenue',
       color: '#EF03C5',
       showMark: false,
     },
     {
-      data: [3, 6, 4, 7, 5, 8, 6, 4, 7, 5, 6, 9],
-      label: 'Data B',
+      data: [3, 5, 4, 4, 3, 5, 4, 4, 5, 2, 3, 5],
+      label: 'Profit',
       color: '#393199',
       showMark: false,
     },

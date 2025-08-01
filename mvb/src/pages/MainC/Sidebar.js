@@ -15,7 +15,7 @@ export default function Sidebar(props) {
         height:"90vh"
       }}>
         <a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-          <span className="fs-2">Sidebar</span>
+          <span className="fs-2">Basera.AI</span>
         </a>
         <hr />
         <Nav className="flex-column mb-auto">

@@ -21,12 +21,7 @@ function AH() {
   });
 
   const [rules] = useState([
-    { rule: "More than 2 Legal Cases", action: "Reject", status: "Active" },
-    { rule: "Operating in High-Risk Sector", action: "Manual Review", status: "Active" },
-    { rule: "SIMAH Score < 600", action: "Reject", status: "Active" },
-    { rule: "Revenue < 50,000 SAR", action: "Reject", status: "Draft" },
-    { rule: "No ERP or Audited Data", action: "Manual Review", status: "Active" },
-  ]);
+     ]);
 
   const companies = [
     { name: "Al-Tamayouz Co.", score: "4.2", status: "Approved", date: "08 Jul 2025" },

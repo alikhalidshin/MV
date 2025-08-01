@@ -11,6 +11,7 @@ import Report from "./clientsC/Report";
 import Pay from "./clientsC/payment";
 import Naics from "./clientsC/NAICS";
 import { Modal } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
 import Table from "./clientsC/Table";
 import Sidebar from "./MainC/Sidebar";
 import Navbars from "./MainC/Navbar";
@@ -25,6 +26,8 @@ class Sub extends Component {
       accent: "#b09696",
       show: false,
       showuser: false,
+      showpop: false,
+      lovely:"",
     };
   }
   handleClose = () => this.setState({
@@ -40,30 +43,15 @@ class Sub extends Component {
   render() {
     return (
       <Row>
-        <Sidebar active={"client"} />
       <div className="d-flex flex-column p-4" style={{ height: "100vh" }}>
         <Row>
           <Col className="d-flex justify-content-between d-flex align-content-center">
-            <p className="fs-1">Basera</p>
-            <DropdownButton
-              align="end"
-              title="Dropdown end"
-              id="dropdown-menu-align-end"
-            >
-              <Dropdown.Item eventKey="1" onClick={this.handleShow}>
-                New analystick
-              </Dropdown.Item>
-              <Dropdown.Item eventKey="2" onClick={this.handleShow}>
-                Wathiq
-              </Dropdown.Item>
-              <Dropdown.Item eventKey="3" onClick={this.handleShow}>
-                leen
-              </Dropdown.Item>
-              <Dropdown.Divider />
-              <Dropdown.Item eventKey="4" onClick={this.handleShowuser}>
-                show users
-              </Dropdown.Item>
-            </DropdownButton>
+            <p className="fs-1">User </p>
+            <div className="flex-grow-1 d-flex justify-content-end align-items-center">
+            <Button className="m-1" onClick={()=>this.setState({showpop:true , lovely:"openBanking"})}> open banking </Button>
+            <Button className="m-1" onClick={()=>this.setState({showpop:true , lovely:"Wathiq"})}> wathiq</Button>
+            <Button className="m-1" onClick={()=>this.setState({showpop:true , lovely:"simah"})}>simah</Button>
+</div>
           </Col>
         </Row>
 
@@ -87,66 +75,46 @@ class Sub extends Component {
           {/* هذا هو الـ Col اللي كان فيه الخطأ */}
           <Col className="border-start border-top p-4">
             <Row>
-              <Col className="">
-                <Row>
-                  <p className="fs-3">Finance over view</p>
-                </Row>
-                <Row>
-                  <Col className="float-start">
-                    <span className="fs-4">Manual</span>
-                  </Col>
-                  <Col className="float-start">
-                    <a className="fs-4 text-decoration-none">Optional</a>
-                  </Col>
-                </Row>
-                <Pay></Pay>
+              <Col className="d-flesx justify-content-between ">
+               
                 <Naics></Naics>
                 <Row>
-                  <Button className="mt-3">ERB & CRM</Button>
+                  <Button className="mt-3" onClick={this.props.onHHide}>Run</Button>
                 </Row>
               </Col>
             </Row>
           </Col>
-          <Modal
-            show={this.state.show}
-            onHide={this.handleClose}
-            centered
-            backdrop="static"
-            keyboard={false}
-          >
+          
+          <Modal show={this.state.showpop} onHide={()=>this.setState({showpop:false})}>
             <Modal.Header closeButton>
-              <Modal.Title>something </Modal.Title>
+              <Modal.Title>{this.state.lovely}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Report />
+              <Form>
+                <Row className="mb-3">
+                 { this.state.lovely === "openBanking" && (
+                  <>
+                   <Col>
+                    <Form.Select name="erpSystem" >
+                      <option value="">Choose Open Banking  System</option>
+                      <option value="Zoho">Plaid</option>
+                      <option value="Odoo">Tink</option>
+                      <option value="SAP">True layer</option>
+                      <option value="Salesforce">yodle</option>
+                    </Form.Select>
+                  </Col>
+                  </>)}
+                  <Col><Form.Control name="apiKey" placeholder="API Key" /></Col>
+                </Row>
+                <Row className="mb-3">
+                  <Col><Button>Test Connection</Button></Col>
+                  <Col><Form.Control type="file" accept=".csv, .xls, .xlsx" /></Col>
+                </Row>
+              </Form>
             </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={this.handleClose}>
-                close
-              </Button>
-            </Modal.Footer>
           </Modal>
-          <Modal
-            
-            show={this.state.showuser}
-            onHide={this.handleCloseuser}
-            centered
-            backdrop="static"
-            keyboard={false}
-            size="xl"
-          >
-            <Modal.Header closeButton>
-              <Modal.Title>my users</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Table/>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={this.handleCloseuser}>
-                close
-              </Button>
-            </Modal.Footer>
-          </Modal>
+          
+           
 
         </Row>
       </div></Row>

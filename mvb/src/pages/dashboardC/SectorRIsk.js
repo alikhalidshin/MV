@@ -23,17 +23,14 @@ export default class SectorRIsk extends Component {
         xs={8}
         >
         <Row>
-            <Col> <h1>
+            <Col className=' d-flex flex-column align-items-center justify-content-center'>
+             <h1>
                 Risk by sector
-            </h1></Col>
-           <Col>
-            <h1>
-               Risk by Ragion
-            </h1></Col>
-        </Row>
-        <Row>
-          <Col> <BarChart
-  xAxis={[{ id: 'barCategories', data: ['Retail', 'Manufacturing', 'Construction', 'Transport'] }]}
+            </h1>
+            <span>{"(ISIC)"}</span>
+            </Col>
+            <Col md={7} xxl={7} xl={7} className='p-4' > <BarChart
+  xAxis={[{ id: 'barCategories', data: ['Retail', 'Manufacturing', 'Construction', 'logistics'] }]}
   series={[
     {
       data: [3, 4, 5, 4],
@@ -56,11 +53,19 @@ export default class SectorRIsk extends Component {
   ]}
   height={300}
 /></Col>
-    <Col>
+        </Row>
+        <Row>
+          <Col className=' d-flex flex-column align-items-center justify-content-center'>
+             <h1>
+                Risk by Region
+            </h1>
+            
+            </Col>
+    <Col md={11} xxl={11} xl={11} lg={11} className='p-4' style={{overflow: 'hidden'}}>
    <LineChart
   xAxis={[
     {
-      data: ['Riyadh', 'Jeddah', 'Dubai', 'Doha', 'Cairo', 'Istanbul', 'Amman', 'Beirut', 'Manama', 'Kuwait', 'Other'],
+      data: ['Riyadh', 'Jeddah', 'Dubai', 'Doha', 'Cairo', 'Istanbul', 'Amman', 'Beirut', 'Manama', 'Kuwait', 'Al-madina'],
       scaleType: 'point',
     },
   ]}

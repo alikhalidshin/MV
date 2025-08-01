@@ -1,145 +1,212 @@
 import Table from 'react-bootstrap/Table';
 import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
-import { useNavigate } from "react-router-dom";
-import { Row } from 'react-bootstrap';
+import Modal from 'react-bootstrap/Modal';
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 function getRiskBadge(risk) {
   const map = {
     Low: 'success',
     Med: 'warning',
     High: 'danger',
-    rev:"secondary"
-
+    rev: 'secondary'
   };
-  return <Badge bg={map[risk]}>{risk}</Badge>;
+  return <Badge bg={map[risk] || 'secondary'}>{risk}</Badge>;
 }
 
-function ResponsiveExample() {
-  const navigate = useNavigate();
-
-  const companies = [
-  {
-    name: 'Al-Tamayouz Co.',
-    score: '4.2',
-    risk: 'Low',
+function evaluateClientAnswers(client, modelAnswers) {
+  const result = {
     status: 'Approved',
-    date: '08 Jul 2025',
-    actions: ['View', 'Re-analyze'],
-  },
-  {
-    name: 'Raqeem Logistics',
-    score: '2.9',
-    risk: 'High',
-    status: 'Rejected',
-    date: '02 Jul 2025',
-    actions: ['View'],
-  },
-  {
-    name: 'Jasmine Retailers',
-    score: '3.6',
-    risk: 'Med',
-    status: 'Review',
-    date: '05 Jul 2025',
-    actions: ['View', 'Edit'],
-  },
-  {
-    name: 'Barakah Industries',
-    score: '4.7',
-    risk: 'Low',
-    status: 'Approved',
-    date: '10 Jul 2025',
-    actions: ['View', 'Re-analyze'],
-  },
-  {
-    name: 'Hajar Freight Co.',
-    score: '3.1',
-    risk: 'rev',
-    status: 'Pending',
-    date: '12 Jul 2025',
-    actions: ['View', 'Edit'],
-  },
-
-    {
-      name: 'Al-Tamayouz Co.',
-      score: '4.2',
-      risk: 'Low',
-      status: 'Approved',
-      date: '08 Jul 2025',
-      actions: ['View 🔍', 'Re-analyze 🔁'],
-    },
-    {
-      name: 'Raqeem Logistics',
-      score: '2.9',
-      risk: 'High',
-      status: 'Rejected',
-      date: '02 Jul 2025',
-      actions: ['View 🔍'],
-    },
-    {
-      name: 'Jasmine Retailers',
-      score: '3.6',
-      risk: 'Med',
-      status: 'Review',
-      date: '05 Jul 2025',
-      actions: ['View 🔍', 'Edit ✏️'],
-    },
-  ];
-
-  const handleNavigate = (company) => {
-    navigate('/Creddit', { state: { company } });
+    reasons: []
   };
 
-  return (
+  for (const key in modelAnswers) {
+    if (key.endsWith('_action')) continue;
+
+    const modelValue = modelAnswers[key];
+    const clientValue = client[key];
+
+    if (clientValue == null) continue;
+
+    const isNumber = !isNaN(Number(modelValue)) && !isNaN(Number(clientValue));
+    const passed = isNumber
+      ? Number(clientValue) >= Number(modelValue)
+      : clientValue === modelValue;
+
+    if (!passed) {
+      result.status = 'Rejected';
+      result.reasons.push(`${key} → expected ${modelValue}, got ${clientValue}`);
+    }
+  }
+
+  return result;
+}
+
+function ResponsiveExample(prop) {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedClient, setSelectedClient] = useState(null);
+  const [updatedClients, setUpdatedClients] = useState([]);
+  const navigate = useNavigate();
+
+  const generalJson = localStorage.getItem('generalRules');
+  const modelAnswers = generalJson ? JSON.parse(generalJson) : {};
+
+  const clients_added = Array.isArray(prop.added) ? prop.added : [];
+const localDataRaw = localStorage.getItem('companiesData');
+const localCompanies = localDataRaw ? JSON.parse(localDataRaw) : [];
+
+const propCompanies = Array.isArray(prop.report?.data) ? prop.report.data : [];
+
+// دمج البيانات وتصفية التكرار على أساس الاسم مثلاً
+const mergedCompanies = [...localCompanies, ...propCompanies].reduce((acc, current) => {
+  const exists = acc.find(c => c.name === current.name);
+  if (!exists) acc.push(current);
+  return acc;
+}, []);
+
+const companies = mergedCompanies;  const type = prop.type;
+  const sta = [...clients_added,...companies].filter(x=> {
     
+    if (x.status === type) return x;}
+   
+  );
+  useEffect(() => {
+    const clientsEvaluated = clients_added.map(client => {
+      const evaluation = evaluateClientAnswers(client, modelAnswers);
+      return {
+        ...client,
+        status: evaluation.status,
+        risk: evaluation.status === 'Approved' ? 'Low' : 'High',
+        remarks: evaluation.reasons
+      };
+    });
+    setUpdatedClients(clientsEvaluated);
+  }, [clients_added]);
+
+  const handleNavigate = (company) => {
+    navigate('/Creddit', { state: company });
+  };
+
+  const handleManualAccept = () => {
+    const modified = updatedClients.map(c =>
+      c.name === selectedClient.name
+        ? { ...c, status: 'Approved', risk: 'Low', remarks: [] }
+        : c
+    );
+    setUpdatedClients(modified);
+    setShowModal(false);
+  };
+//prop
+  const renderTable = (data) => (
     <Table responsive className="custom-table">
       <thead className="custom-thead bg-bg">
         <tr>
           <th>#</th>
           <th>Company Name</th>
-          <th>Score</th>
           <th>Risk</th>
           <th>Status</th>
+          <th>Remarks</th>
           <th>Last Analysis</th>
           <th>Actions</th>
         </tr>
       </thead>
-      <tbody >
-        {companies.map((company, index) => (
+      <tbody>
+        {data.map((company, index) => (
           <tr
             key={index}
-            className={index % 2 === 0 ? 'custom-row-secondary' : 'custom-row-accent'}
+            className={
+              index % 2 === 0 ? 'custom-row-secondary' : 'custom-row-accent'
+            }
           >
             <td>{index + 1}</td>
-            <td>{company.name}</td>
-            <td>{company.score}</td>
-            <td>{getRiskBadge(company.risk)}</td>
+            <td>{company.name || company["company_name"]?.trim() || 'nothing found'}</td>
+            <td>{getRiskBadge(company.risk || company.status)}</td>
+            <td>{company.status || 'Review'}</td>
             <td>
-              {company.status === 'Approved'
-                ? '✅'
-                : company.status === 'Rejected'
-                ? '❌'
-                : '⚠️'}{' '}
-              {company.status}
+              {Array.isArray(company.remarks)
+                ? company.remarks.map((r, i) => (
+                    <Badge bg="light" text="dark" className="me-1" key={i}>
+                      {r}
+                    </Badge>
+                  ))
+                : '—'}
             </td>
-            <td>{company.date}</td>
+            <td>{company.date || 'No Answer'}</td>
             <td>
-              {company.actions.map((action, i) => (
+              <Button
+                variant="primary"
+                size="sm"
+                className="me-2"
+                onClick={() => handleNavigate(company)}
+              >
+                View
+              </Button>
+              {['Rejected', 'Pending', 'Review'].includes(company.status) && (
                 <Button
-                  key={i}
-                  variant={i === 0 ? 'primary' : 'secondary'}
+                  variant="secondary"
                   size="sm"
-                  className="me-2"
-                  onClick={() => handleNavigate(company)}
+                  onClick={() => {
+                    setSelectedClient(company);
+                    setShowModal(true);
+                  }}
                 >
-                  {action}
+                  Manual
                 </Button>
-              ))}
+              )}
             </td>
           </tr>
         ))}
       </tbody>
     </Table>
   );
+
+  return (
+    <>
+      {type === 'in Stack' && renderTable(updatedClients)}
+      {type === 'All' && renderTable([...companies, ...updatedClients])}
+      {['Approved', 'Rejected', 'Review'].includes(type) && renderTable(sta)}
+
+     <Modal show={showModal} onHide={() => setShowModal(false)} backdrop="static">
+  <Modal.Header closeButton>
+    <Modal.Title>📝 {selectedClient?.name || 'Client Details'}</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    <div className="mb-3">
+      {selectedClient &&
+        Object.entries(selectedClient).map(([key, value], i) => (
+          <div key={i} className="d-flex justify-content-between border-bottom py-2">
+            <strong className="me-2">{key}</strong>
+            <span className="text-end" style={{ maxWidth: "60%" }}>
+              {typeof value === 'object' && value !== null
+                ? Array.isArray(value)
+                  ? value.map((v, idx) => (
+                      <Badge bg="light" text="dark" className="me-1" key={idx}>
+                        {typeof v === 'object' ? JSON.stringify(v) : v}
+                      </Badge>
+                    ))
+                  : Object.entries(value).map(([k, v], idx) => (
+                      <div key={idx}>
+                        <strong>{k}:</strong> {String(v)}
+                      </div>
+                    ))
+                : String(value) || '—'}
+            </span>
+          </div>
+        ))}
+    </div>
+    <div className="d-flex justify-content-end gap-2">
+      <Button variant="success" onClick={handleManualAccept}>
+        Accept
+      </Button>
+      <Button variant="danger" onClick={() => setShowModal(false)}>
+        Reject
+      </Button>
+    </div>
+  </Modal.Body>
+</Modal>
+    </>
+  );
 }
-export default ResponsiveExample
+
+export default ResponsiveExample;

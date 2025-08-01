@@ -47,7 +47,8 @@ function Report({show}) {
             <Form.Group className="mb-3">
               <Form.Label>Overall Score Threshold</Form.Label>
               <Form.Control
-                type="number"
+  defaultValue="ali"
+               type="number"
                 value={scores.overall}
                 onChange={(e) => setScores({ ...scores, overall: parseFloat(e.target.value) })}
               />

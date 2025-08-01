@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { Row ,Col} from 'react-bootstrap'
 import { RiDownloadLine } from "react-icons/ri";
-
+import { Button } from 'react-bootstrap';
+import  Form from 'react-bootstrap/Form';
+import { Modal } from 'react-bootstrap';
 export default class FinanceDoc extends Component {
     constructor(props)
   {
@@ -16,18 +18,31 @@ export default class FinanceDoc extends Component {
     }
   }
   render() {
+    const handleChange = (e) => {
+      console.log(e.target.value);
+    }
     return (
       <Row className='d-flex '>
         <div>
             <p className="fs-4 ms-3">
-                Finance Documents
-            </p>
+Form            </p>
 
         </div>
-        <div className='d-flex d-flex justify-content-center border  rounded-4 '  >
-               <p className="fs-2 text-body-secondary">
-                  < RiDownloadLine/>  Drop Files Here Click To Upload
-               </p>
+        <div className='justify-content-center  rounded-4 '  >
+               <Form>
+                <Row className="mb-3">
+                  <Col><Form.Control name="name" placeholder="company name" onChange={handleChange} /></Col>
+                  <Col><Form.Control name="crNumber" placeholder="Unified Number " onChange={handleChange} /></Col>
+                </Row>
+                <Row className="mb-3">
+                  <Col><Form.Control name="Bank name" placeholder="Bank" onChange={handleChange} /></Col>
+                  <Col><Form.Control name="Acount Name" placeholder="Acount Name " onChange={handleChange} /></Col>
+                </Row>
+                <Row className="mb-3">
+                  <Col><Form.Control name="UN" placeholder="Bank Acount Number " onChange={handleChange} /></Col>
+                </Row>
+             
+            </Form>
         </div>
       </Row>
     )

@@ -78,11 +78,11 @@ export default class Graphs extends Component {
              <div className='d-flex align-items-center'>
                <FaArrowTrendUp size={30} />
                <p className="fs-4 ms-3 mb-0">
-                Profit
+                AVG.Day
                </p>
              </div>
              <p className="fs-2 mt-3">
-               3,2M
+              12 DAY
              </p>
            </Card.Body>
          </Card>

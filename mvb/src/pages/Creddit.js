@@ -1,86 +1,178 @@
-import React from 'react';
-import ProgressBar from 'react-bootstrap/ProgressBar';
-import { Col, Row, Card, Badge } from 'react-bootstrap';
-// import Report  from './credditC/Report.js';
-import Graph from './credditC/Graph.js';
-import Table from './credditC/AH.js';
-import Cards from './credditC/cards.js';
+import React from "react";
+import ProgressBar from "react-bootstrap/ProgressBar";
+import { Col, Row, Card, Badge, Navbar, Container, Nav, Button } from "react-bootstrap";
+import Graph from "./credditC/Graph.js";
+import Table from "./credditC/AH.js";
+import Cards from "./credditC/cards.js";
 import { useLocation } from "react-router-dom";
-import Sidebar, {  } from "./MainC/Sidebar.js";
+import Ai from "./credditC/Ai.js";
+import Sidebar from "./MainC/Sidebar.js";
 
-const Creddit = () => {
+const Creddit = ({nav}) => {
   const location = useLocation();
-  const station = JSON.stringify(location.state);
+const station = location.state || {};
+function getRandomScore(min = 60, max = 90) {
+
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+const fallbackCompany = {
+  name: "ebtkar Ltd.",
+  status: "Pending",
+  assessedBy: "AI System",
+  scores: {
+    willingness: getRandomScore(),
+    capacity: getRandomScore(),
+    context: getRandomScore(),
+    stability: getRandomScore(),
+  },
+  financialIndicators: {
+    averageMonthlyRevenue: Math.floor(Math.random() * 150000) + 50000,
+    averageExpenses: Math.floor(Math.random() * 100000) + 30000,
+    bankBalance: Math.floor(Math.random() * 80000),
+    onTimeInvoices: getRandomScore(),
+  },
+  sector: "Technology",
+};
 
 
-    const ali = [
-    { name: "Capacity", num: "88", dis: "some thi ghsba" },
-    { name: "Willingness", num: "88", dis: "some thi ghsba" },
-    { name: "Context", num: "88", dis: "some thi ghsba" },
-    { name: "Stability", num: "88", dis: "some thi ghsba" },
-  ];
 
-  const company = location.state?.company;
-
+const company = {
+  status: station.status ?? fallbackCompany.status,
+  assessedBy: station.assessedBy ?? fallbackCompany.assessedBy,
+  sector: station.sector ?? fallbackCompany.sector,
+  scores: {
+    willingness: station.scores?.willingness ?? fallbackCompany.scores.willingness,
+    capacity: station.scores?.capacity ?? fallbackCompany.scores.capacity,
+    context: station.scores?.context ?? fallbackCompany.scores.context,
+    stability: station.scores?.stability ?? fallbackCompany.scores.stability,
+  },
+  financialIndicators: {
+    averageMonthlyRevenue: station.financialIndicators?.averageMonthlyRevenue ?? fallbackCompany.financialIndicators.averageMonthlyRevenue,
+    averageExpenses: station.financialIndicators?.averageExpenses ?? fallbackCompany.financialIndicators.averageExpenses,
+    bankBalance: station.financialIndicators?.bankBalance ?? fallbackCompany.financialIndicators.bankBalance,
+    onTimeInvoices: station.financialIndicators?.onTimeInvoices ?? fallbackCompany.financialIndicators.onTimeInvoices,
+  },
+};
+  
+  console.log(station)
+  const [shown, setShown] = React.useState(false);
   return (
-    <div className='row pe-4 '
-    style={{width:"98%"}}
-    >
-        <Sidebar active={"Client"} />
-        <Col >
-      <Row className='p-0'>
-            <Cards />
+    <div className="row pe-4 ps-4" style={{ width: "98%" }}>
+      {/* Header */}
+      <Row className="p-4">
+        <Navbar className="bg-body-tertiary love rounded-4 ps-2 pe-2">
+          <Container fluid>
+            <Navbar.Brand href="#home" className="d-flex justify-content-between">
+              <label className="fw-bold fs-3">{company.name|| company["company_name"]}</label>
+            </Navbar.Brand>
+
+          
+
+            <Nav.Item>
+              <Button variant={"outline-primary"} onClick={() => setShown(true)}>
+                AI Recommendation
+              </Button>
+            </Nav.Item>
+          </Container>
+        </Navbar>
       </Row>
-      <Row className="p-0">
-        <Col>
-          <Graph />
-          <Table />
-        </Col>
 
-        <Col xxl={4} xl={4} lg={4} md={4} sm={4} xsm={4}>
-          <Row>
-            <Row className="mt-4 border-0 shadow-sm rounded-4 p-4 love">
-  <Col xs={12}>
-    <p className="fs-3 pb-3">key indecration</p>
-  </Col>
+      {/* Sidebar + Main */}
+      {
+        company.archives !==1 && (
+                <Sidebar active={"Client"} />
 
-  {[
-    { label: "Avg monthly", value: "125,000$" },
-    { label: "AVG. Expenses", value: "85,900$" },
-    { label: "Bank Balance", value: "22,000$" },
-    { label: "Simah Score", value: "660" },
-    { label: "External Legal Cases", value: "None" },
-  ].map((item, i) => (
-    <Col key={i} md={6} className="border-bottom mine d-flex justify-content-between align-items-center py-2">
-      <p className="fs-4 mb-0">{item.label}</p>
-      <p className="fs-5 mb-0">{item.value}</p>
-    </Col>
-  ))}
+        ) 
+      }
+      <Col>
+        {/* Evaluation Cards */}
+        <Row className="p-0">
+          <Cards
+            wiil={company.scores?.willingness}
+            capacity={company.scores?.capacity}
+            context={company.scores?.context}
+            stability={company.scores?.stability}
+          />
+        </Row>
 
-  <Col xs={12} className="border-bottom mine d-flex align-items-center justify-content-between py-2">
-    <p className="fs-4 mb-0">On-time invoices</p>
-    <div className="flex-grow-1 px-3">
-      <ProgressBar variant="danger" now={84} />
-    </div>
-  </Col>
+        {/* Graph + Key Indicators */}
+        <Row className="p-0">
+          <Col>
+          {console.log(company)}
+<Graph
+  AssesedBy={company.assessedBy} 
+  capacity={company.scores?.capacity}
+  wiil={company.scores?.willingness}
+  context={company.scores?.context}
+  stability={company.scores?.stability}
+/>
+          </Col>
 
-  <Col xs={12} className="border-bottom mine d-flex align-items-center justify-content-between py-2">
-    <p className="fs-4 mb-0">Sector</p>
-    <div className="flex-grow-1 px-3">
-      <ProgressBar variant="danger" now={84} />
-    </div>
-    <Badge bg="warning" text="dark" className="fs-6 ms-2" pill>
-      medium
-    </Badge>
-  </Col>
-</Row>
-          </Row>
+          <Col xxl={4} xl={4} lg={4} md={4} sm={4} xsm={4}>
+            <Row>
+              <Row className="mt-4 border-0 shadow-sm rounded-4 p-4 love">
+                <Col xs={12}>
+                  <p className="fs-3 pb-3">Key Indicators</p>
+                </Col>
 
-          <Row>
-           
-          </Row>
-        </Col>
-      </Row></Col>
+                <Row xs={1} md={2} className="g-4">
+                  {[
+                    {
+                      label: "Avg monthly",
+                      value: `${company.financialIndicators?.averageMonthlyRevenue}$`,
+                    },
+                    {
+                      label: "AVG. Expenses",
+                      value: `${company.financialIndicators?.averageExpenses}$`,
+                    },
+                    {
+                      label: "Bank Balance",
+                      value: `${company.financialIndicators?.bankBalance}$`,
+                    },
+                  ].map((item, i) => (
+                    <Col key={i}>
+                      <Card className="h-100">
+                        <Card.Body className="d-flex flex-column justify-content-between">
+                          <Card.Title className="fs-5 fw-bold">{item.label}</Card.Title>
+                          <Card.Text className="fs-4">{item.value}</Card.Text>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  ))}
+
+                  {/* On-time invoices */}
+                  <Col xs={12}>
+                    <Card className="h-100">
+                      <Card.Body>
+                        <Card.Title className="fs-5 fw-bold">On-time invoices</Card.Title>
+                        <ProgressBar
+                          variant="info"
+                          now={company.financialIndicators?.onTimeInvoices}
+                          label={`${company.financialIndicators?.onTimeInvoices}%`}
+                        />
+                      </Card.Body>
+                    </Card>
+                  </Col>
+
+                  {/* Sector */}
+                  <Col xs={12}>
+                    <Card className="h-100">
+                      <Card.Body>
+                        <Card.Title className="fs-5 fw-bold">Sector</Card.Title>
+                        <Card.Text className="fs-4">{company.sector}</Card.Text>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                </Row>
+              </Row>
+            </Row>
+          </Col>
+        </Row>
+
+        {/* AI Recommendation Modal */}
+        <Ai show={shown} onHide={() => setShown(false)} />
+      </Col>
     </div>
   );
 };

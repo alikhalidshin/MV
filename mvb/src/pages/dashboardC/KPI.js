@@ -11,28 +11,29 @@ export default class KPI extends Component {
               className="m-4 shadow p-3 mb-5 bg-body-tertiary rounded d-flex flex-column align-items-center justify-content-center "
               style={{ backgroundColor: "white" }}
             >
-              <h4 className="mb-3">Average Credit Score</h4>
-              <h1>75</h1>
+              <h4 className="mb-3">Active client</h4>
+              <h1>120</h1>
             </Col>
             <Col
               className="m-4 shadow p-3 mb-5 bg-body-tertiary rounded d-flex flex-column align-items-center justify-content-center "
               style={{ backgroundColor: "white" }}
             >
-              <h4 className="mb-3">Average Credit Score</h4>
-              <h1>75</h1>
+              <h4 className="mb-3">Accepted rate</h4>
+              <h1>85%</h1>
             </Col>
             <Col
               className="m-4 shadow p-3 mb-5 bg-body-tertiary rounded d-flex flex-column align-items-center justify-content-center "
               style={{ backgroundColor: "white" }}
             >
-              <h4 className="mb-3">Average Credit Score</h4>
-              <h1>75</h1>
+              <h4 className="mb-3">Completed Analyses</h4>
+              <h1>310</h1>
             </Col>
             <Col
+
               className="m-4 shadow p-3 mb-5 bg-body-tertiary rounded"
               style={{ backgroundColor: "white" }}
             >
-              <h2>complete analyse</h2>
+              <h2>last Analyses</h2>
               <div className="mb-4">
                 <div
                   className="d-flex "
@@ -41,7 +42,7 @@ export default class KPI extends Component {
                     justifyContent: "space-between",
                   }}
                 >
-                  <h4>client 3</h4> <Badge bg="success">high</Badge>
+                  <h4>Barakah Industries</h4> <Badge bg="success">Low</Badge>
                 </div>
 
                 <div className="mt-2">
@@ -60,7 +61,7 @@ export default class KPI extends Component {
                     justifyContent: "space-between",
                   }}
                 >
-                  <h4>client 2</h4> <Badge bg="danger">Hard</Badge>
+                  <h4>Hajar Freight Co</h4> <Badge bg="danger">High</Badge>
                 </div>
 
                 <div className="mt-2">
@@ -79,7 +80,7 @@ export default class KPI extends Component {
                     justifyContent: "space-between",
                   }}
                 >
-                  <h4>Client 1</h4> <Badge bg="warning">med</Badge>
+                  <h4>Al-Tamayouz Co.</h4> <Badge bg="warning">med</Badge>
                 </div>
 
                 <div className="mt-2">
