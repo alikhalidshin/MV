@@ -11,7 +11,7 @@ import Sub from "./Clients";
 import Styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { GrNext } from "react-icons/gr";
-
+import Spinner from "react-bootstrap/Spinner";
 import Drag from "./formC/drag";
 
 const Love = Styled.div`/* From Uiverse.io by Na3ar-17 */ 
@@ -168,8 +168,8 @@ const [q17, setq17] = useState("");
 const [q18, setq18] = useState("");
 const [q19, setq19] = useState("");
 const [q20, setq20] = useState("");
+const [loading, setLoading] = useState("");
 
-  const [loading, setLoading] = useState("");
   const stepsQuestions = {
   2: [
     { name: "company_name", placeholder: "Company Name", fun: setq1, var: q1 },
@@ -246,14 +246,23 @@ const financialQuestionsMapped = [
   const [showRulesModal, setShowRulesModal] = useState(false);
 
   // جلب التقارير من السيرفر
-  useEffect(() => {
+   useEffect(() => {
+    setLoading(true); // بدأ الجلب
     axios
       .get("https://alfatiha.onrender.com/report")
-      .then((response) => setReport(response.data))
+      .then((response) => {
+        setReport(response.data);
+      })
       .catch((error) => {
-        console.error("حدث خطأ أثناء جلب التقرير:", error);
+        alert("❌ حصل خطأ في جلب التقارير");
+        console.error(error);
+      })
+      .finally(() => {
+        setLoading(false); // انتهى الجلب
       });
   }, []);
+
+
   console.log(rules);
   // بيانات الفلاتر
   const mine = [
@@ -398,6 +407,11 @@ const handleSubmit = () => {
 
   return (
     <div className="row">
+       {loading && (
+        <div style={{ textAlign: "center", marginTop: "20px" }}>
+          <Spinner animation="border" variant="primary" />
+        </div>
+      )}
       <Sidebar active={"Client"} />
       <Col>
         <div className="p-4 d-flex align-items-center mb-4 justify-content-between">
@@ -456,14 +470,14 @@ const handleSubmit = () => {
 
         <Modal
           size="xl"
-          contentClassName="bg-dark"
+          contentClassName=""
           show={show}
           onHide={handleClose}
         >
           {step === 2 && (
             <>
               <div className="mb-3 d-flex justify-content-between">
-                <h1 className="text-light">Verifier Form</h1>
+                <h1 className="text-dark">Verifier Form</h1>
                 <div>
                   <Button
                     onClick={() => setStep(step + 1)}
@@ -474,7 +488,7 @@ const handleSubmit = () => {
                 </div>
               </div>
 
-              <Love className="d-flex flex-column bg-dark text-light rounded-4 ps-4 pe-4">
+              <Love className="d-flex flex-column text-dark rounded-4 ps-4 pe-4">
                 <Form
                   onSubmit={(e) => {
                     e.preventDefault();
@@ -504,7 +518,7 @@ const handleSubmit = () => {
                           add({ ERP: e.target.value }, "no");
                           sethasERP(e.target.value);
                         }}
-                        className="input bg-dark text-light border-1"
+                        className="input text-dark border-1"
                       >
                         <option value="">Do You Use ERP/CRM System?</option>
                         <option value="yes">Yes</option>
@@ -515,13 +529,13 @@ const handleSubmit = () => {
 
                   <Row>
                     <Col className="d-flex flex-column border-end align-items-center">
-                      <label className="text-light fs-4 mb-4">
+                      <label className="text-dark fs-4 mb-4">
                         Finan Statements for last three years
                       </label>
                       <Drag />
                     </Col>
                     <Col className="d-flex flex-column align-items-center">
-                      <label className="text-light fs-4 mb-4">
+                      <label className="text-dark fs-4 mb-4">
                         Audit report
                       </label>
                       <Drag />
@@ -535,9 +549,9 @@ const handleSubmit = () => {
           {step === 3 && (
             <Row className="h-100 d-flex flex-column flex-grow-1 align-items-center px-5 p-4">
               {hasERP === "yes" ? (
-                <Col className="d-flex flex-column px-5 bg-dark text-light rounded-4">
+                <Col className="d-flex flex-column px-5 text-dark rounded-4">
                   <div className="mb-3 d-flex justify-content-between">
-                    <h1 className="text-light">Verifier Form</h1>
+                    <h1 className="text-dark">Verifier Form</h1>
                     <div>
                       <Button
                         onClick={() => setShow(false)}
@@ -558,7 +572,7 @@ const handleSubmit = () => {
                     </div>
                   </div>
 
-                  <h1 className="text-light">ERP Details</h1>
+                  <h1 className="text-dark">ERP Details</h1>
                   <Love>
                     <Form
                       onSubmit={(e) => {
@@ -568,7 +582,7 @@ const handleSubmit = () => {
                       <Row className="mb-3">
                         <Col>
                           <Form.Select
-                            className="input bg-dark text-light"
+                            className="input  text-dark"
                             onChange={(e) =>
                               add({ ERP_SYS: e.target.value }, "no")
                             }
@@ -583,7 +597,7 @@ const handleSubmit = () => {
                         </Col>
                         <Col>
                           <Form.Select
-                            className="input bg-dark text-light"
+                            className="input text-dark"
                             onChange={(e) =>
                               add({ CRM_system: e.target.value }, "no")
                             }
@@ -629,9 +643,9 @@ const handleSubmit = () => {
                   </Love>
                 </Col>
               ) : (
-                <Col className="d-flex flex-column px-5 bg-dark text-light rounded-4">
+                <Col className="d-flex flex-column px-5  text-dark rounded-4">
                   <div className="mb-3 d-flex justify-content-between">
-                    <h1 className="text-light">No ERP info</h1>
+                    <h1 className="text-dark">No ERP info</h1>
                     <div>
                       <Button
                         onClick={() => setStep(step - 1)}

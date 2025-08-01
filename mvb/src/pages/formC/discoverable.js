@@ -61,131 +61,131 @@ const Love = Styled.div`.input {
 
 `;
 
-
 function Discoverable({ step, setStep, add, ST, show, onHide }) {
-   const navigate = useNavigate();
-   const [data, set] = useState("");
-    const [q1, setq1] = useState("");
-    const [q2, setq2] = useState("");
-    const [q3, setq3] = useState("");
-    const [q4, setq4] = useState("");
-    const [q5, setq5] = useState("");
-    const [q6, setq6] = useState("");
-    const [q7, setq7] = useState("");
-    const [q8, setq8] = useState("");
-    const [q9, setq9] = useState("");
-    const [q10, setq10] = useState("");
-    const [q11, setq11] = useState("");
-    const [q12, setq12] = useState("");
-    const [q13, setq13] = useState("");
-    const [q14, setq14] = useState("");
-    const [q15, setq15] = useState("");
-    const [q16, setq16] = useState("");
-    const [q17, setq17] = useState("");
-    const [q18, setq18] = useState("");
-    const [q19, setq19] = useState("");
-    const [q20, setq20] = useState("");
-  
-    const stepsQuestions = {
-      3: [
-        {
-          name: "isicSector",
-          placeholder: "Sector (ISIC Classification)",
-          fun: setq4,
-          var: q4,
-        },
-        {
-          name: "employees",
-          placeholder: "Number of Employees",
-          type: "number",
-          fun: setq5,
-          var: q5,
-        },
-        {
-          name: "businessAge",
-          placeholder: "Business Age (Years)",
-          type: "number",
-          fun: setq6,
-          var: q6,
-        },
-      ],
-      2: [
-        {
-          name: "company_name",
-          placeholder: "Company Name",
-          fun: setq1,
-          var: q1,
-        },
-        {
-          name: "crNumber",
-          placeholder: "Unified Number (CR)",
-          fun: setq2,
-          var: q2,
-        },
-        { name: "Region", placeholder: "City / Region", fun: setq3, var: q3 },
-      ],
-      4: {
-        name: "revenue Expenses",
-        placeholder: "Avg. Monthly Revenue and Expenses",
-        fun: setq7,
-        var: q7,
-      },
-    };
-  
-    const nosection1 = [
-      { label: "liquidity ratios", fun: setq8, var: q8 },
-      { label: "dept ratios", fun: setq9, var: q9 },
-      { label: "profit ability", fun: setq10, var: q10 },
-      { label: "operating cash flows", fun: setq11, var: q11 },
-      {
-        label: "constracts with the last 5 suppliers and clients",
-        fun: setq12,
-        var: q12,
-      },
-      { label: "Adminstrave ownership", fun: setq13, var: q13 },
-      { label: "business sector", fun: setq14, var: q14 },
-    ];
-  
-    const financialQuestionsMapped = [
-      { label: "Monthly Revenue", fun: setq15, var: q15 },
-      { label: "Invoice Volume", fun: setq16, var: q16 },
-      { label: "Payment Timeliness (%)", fun: setq17, var: q17 },
-      { label: "Delays or Defaults", fun: setq18, var: q18 },
-      { label: "Current Liabilities / Loans", fun: setq19, var: q19 },
-      { label: "Bank Cash Balance (Optional)", fun: setq20, var: q20 },
-    ];
-    const handleSubmit =  () => {
-      
-    const x=[
-  ...nosection1,
-  ...stepsQuestions[2],
-  ...stepsQuestions[3],
-  ...[stepsQuestions[4]],
-  ...financialQuestionsMapped,
-]
+  const navigate = useNavigate();
+  const [data, set] = useState("");
+  const [q1, setq1] = useState("");
+  const [q2, setq2] = useState("");
+  const [q3, setq3] = useState("");
+  const [q4, setq4] = useState("");
+  const [q5, setq5] = useState("");
+  const [q6, setq6] = useState("");
+  const [q7, setq7] = useState("");
+  const [q8, setq8] = useState("");
+  const [q9, setq9] = useState("");
+  const [q10, setq10] = useState("");
+  const [q11, setq11] = useState("");
+  const [q12, setq12] = useState("");
+  const [q13, setq13] = useState("");
+  const [q14, setq14] = useState("");
+  const [q15, setq15] = useState("");
+  const [q16, setq16] = useState("");
+  const [q17, setq17] = useState("");
+  const [q18, setq18] = useState("");
+  const [q19, setq19] = useState("");
+  const [q20, setq20] = useState("");
 
-console.log(x)
-    try{
-     const combinedObject = Object.assign({}, ...x.map((el) => ({ [el.label || el.name]: el.var })))
-     
-     set( combinedObject )
-     console.log("data",combinedObject)
-     console.log("data",data)
-     //prev
-     combinedObject.name= combinedObject["company_name"]
-     combinedObject.archives= 1
-     navigate('/Creddit', { state: combinedObject })
-      } catch (error) {
+  const stepsQuestions = {
+    3: [
+      {
+        name: "isicSector",
+        placeholder: "Sector (ISIC Classification)",
+        fun: setq4,
+        var: q4,
+      },
+      {
+        name: "employees",
+        placeholder: "Number of Employees",
+        type: "number",
+        fun: setq5,
+        var: q5,
+      },
+      {
+        name: "businessAge",
+        placeholder: "Business Age (Years)",
+        type: "number",
+        fun: setq6,
+        var: q6,
+      },
+    ],
+    2: [
+      {
+        name: "company_name",
+        placeholder: "Company Name",
+        fun: setq1,
+        var: q1,
+      },
+      {
+        name: "crNumber",
+        placeholder: "Unified Number (CR)",
+        fun: setq2,
+        var: q2,
+      },
+      { name: "Region", placeholder: "City / Region", fun: setq3, var: q3 },
+    ],
+    4: {
+      name: "revenue Expenses",
+      placeholder: "Avg. Monthly Revenue and Expenses",
+      fun: setq7,
+      var: q7,
+    },
+  };
+
+  const nosection1 = [
+    { label: "liquidity ratios", fun: setq8, var: q8 },
+    { label: "dept ratios", fun: setq9, var: q9 },
+    { label: "profit ability", fun: setq10, var: q10 },
+    { label: "operating cash flows", fun: setq11, var: q11 },
+    {
+      label: "constracts with the last 5 suppliers and clients",
+      fun: setq12,
+      var: q12,
+    },
+    { label: "Adminstrave ownership", fun: setq13, var: q13 },
+    { label: "business sector", fun: setq14, var: q14 },
+  ];
+
+  const financialQuestionsMapped = [
+    { label: "Monthly Revenue", fun: setq15, var: q15 },
+    { label: "Invoice Volume", fun: setq16, var: q16 },
+    { label: "Payment Timeliness (%)", fun: setq17, var: q17 },
+    { label: "Delays or Defaults", fun: setq18, var: q18 },
+    { label: "Current Liabilities / Loans", fun: setq19, var: q19 },
+    { label: "Bank Cash Balance (Optional)", fun: setq20, var: q20 },
+  ];
+  const handleSubmit = () => {
+    const x = [
+      ...nosection1,
+      ...stepsQuestions[2],
+      ...stepsQuestions[3],
+      ...[stepsQuestions[4]],
+      ...financialQuestionsMapped,
+    ];
+
+    console.log(x);
+    try {
+      const combinedObject = Object.assign(
+        {},
+        ...x.map((el) => ({ [el.label || el.name]: el.var }))
+      );
+
+      set(combinedObject);
+      console.log("data", combinedObject);
+      console.log("data", data);
+      //prev
+      combinedObject.name = combinedObject["company_name"];
+      combinedObject.archives = 1;
+      navigate("/Creddit", { state: combinedObject });
+    } catch (error) {
       console.error("Axios error:", error);
     }
   };
 
   const [hasERP, sethasERP] = useState("");
   const [loading, setLoading] = useState("");
-  
 
   return (
-  <>
+    <>
       {/* client */}
       <div fluid className="vh-100 overflow-hidden bg-dark text-light p-4">
         <Button
@@ -206,7 +206,6 @@ console.log(x)
             }}
           >
             <Col className="d-flex flex-column justify-content-center align-items-center px-5 bg-dark h-100 text-light rounded-4">
-            
               {/* <StyledWrapper ><div className="animation  ">Loading ... </div></StyledWrapper> */}
               <Button
                 onClick={handleSubmit}
@@ -215,7 +214,7 @@ console.log(x)
                 style={{ width: "100%" }}
               >
                 {" "}
-                show your profile 
+                show your profile
               </Button>
             </Col>
           </div>
@@ -264,37 +263,41 @@ console.log(x)
                       <Col className="me-2">
                         <Row>
                           {stepsQuestions[2].map((e) => {
-                            return(
-                            <Form.Control
-                              onChange={(el) => e.fun(el.target.value)}
-                              className="input mb-2"
-                              name={`${e.name}`}
-                              placeholder={e.name}
-                            />);
+                            return (
+                              <Form.Control
+                                onChange={(el) => e.fun(el.target.value)}
+                                className="input mb-2"
+                                name={`${e.name}`}
+                                placeholder={e.name}
+                              />
+                            );
                           })}
                         </Row>
                       </Col>
                       <Col className=" ms-2">
                         <Row>
                           {stepsQuestions[3].map((e) => {
-                            return(
-                            <Form.Control
-                              onChange={(el) => e.fun(el.target.value)}
-                              className="input mb-2"
-                              name={`${e.name}`}
-                              placeholder={e.name}
-                            />);
+                            return (
+                              <Form.Control
+                                onChange={(el) => e.fun(el.target.value)}
+                                className="input mb-2"
+                                name={`${e.name}`}
+                                placeholder={e.name}
+                              />
+                            );
                           })}
                         </Row>
                       </Col>
                     </Row>
                     <Row>
-                       <Form.Control
-                              onChange={(el) => stepsQuestions[4].fun(el.target.value)}
-                              className="input mb-2"
-                              name={`${stepsQuestions[4].name}`}
-                              placeholder={stepsQuestions[4].name}
-                            />
+                      <Form.Control
+                        onChange={(el) =>
+                          stepsQuestions[4].fun(el.target.value)
+                        }
+                        className="input mb-2"
+                        name={`${stepsQuestions[4].name}`}
+                        placeholder={stepsQuestions[4].name}
+                      />
                     </Row>
 
                     <Row>
@@ -429,7 +432,6 @@ console.log(x)
                       />
                     </Col>
                     <Col>
-
                       <Form.Control
                         name="CRM apiKey"
                         placeholder="CRM API Key"
@@ -482,34 +484,31 @@ console.log(x)
                 </div>
 
                 <Love>
-                 <Row>
-                                       <Col>
-                                         {nosection1.map((field, idx) => (
-                                           <Row className="mb-4 mt-2" key={idx}>
-                                             <Form.Control
-                                               name={field.label}
-                                               placeholder={field.label}
-                                               onChange={(e) =>
-                                                 field.fun(e.target.value)
-                                               }
-                                               className="input"
-                                             />
-                                           </Row>
-                                         ))}
-                                       </Col>
-                                       <Col>
-                                             {financialQuestionsMapped.map((field, index) => (
-                                                  <Form.Control
-                                                    key={index}
-                                                    className="input mb-4 mt-2"
-                                                    name={field.label}
-                                                    placeholder={field.label}
-                                                    onChange={(e) => field.fun(e.target.value)}
-                                                  />
-                                                ))}
-                 
-                                       </Col>
-                                     </Row>
+                  <Row>
+                    <Col>
+                      {nosection1.map((field, idx) => (
+                        <Row className="mb-4 mt-2" key={idx}>
+                          <Form.Control
+                            name={field.label}
+                            placeholder={field.label}
+                            onChange={(e) => field.fun(e.target.value)}
+                            className="input"
+                          />
+                        </Row>
+                      ))}
+                    </Col>
+                    <Col>
+                      {financialQuestionsMapped.map((field, index) => (
+                        <Form.Control
+                          key={index}
+                          className="input mb-4 mt-2"
+                          name={field.label}
+                          placeholder={field.label}
+                          onChange={(e) => field.fun(e.target.value)}
+                        />
+                      ))}
+                    </Col>
+                  </Row>
                 </Love>
               </Col>
             )}

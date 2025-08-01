@@ -4,7 +4,16 @@ import { RiDownloadLine } from "react-icons/ri";
 import { Button } from 'react-bootstrap';
 import  Form from 'react-bootstrap/Form';
 import { Modal } from 'react-bootstrap';
+import styled from 'styled-components';
+const Love = styled.div`
+::placeholder {
+  color: #3B3B3BFF !important; /* أو أي لون يناسبك */
+  opacity: 1 !important;  /* بعض المتصفحات تقلل شفافية الـ placeholder */
+}
+
+`
 export default class FinanceDoc extends Component {
+
     constructor(props)
   {
     super(props)
@@ -29,7 +38,9 @@ Form            </p>
 
         </div>
         <div className='justify-content-center  rounded-4 '  >
+          <Love>
                <Form>
+
                 <Row className="mb-3">
                   <Col><Form.Control name="name" placeholder="company name" onChange={handleChange} /></Col>
                   <Col><Form.Control name="crNumber" placeholder="Unified Number " onChange={handleChange} /></Col>
@@ -43,6 +54,7 @@ Form            </p>
                 </Row>
              
             </Form>
+            </Love>
         </div>
       </Row>
     )

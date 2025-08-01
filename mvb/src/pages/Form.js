@@ -7,7 +7,7 @@ import Verifier from "./formC/Verifier";
 import Discoverable from "./formC/discoverable";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-
+import { Spinner } from "react-bootstrap";
 const StyledWrapper = Styled.div`
   .input {
     min-width: 100%;
@@ -133,7 +133,7 @@ const Love = Styled.div`/* From Uiverse.io by Na3ar-17 */
 
 function LoginForm() {
   //cal
-  
+
   const [active, setactive] = useState(true);
   const navigate = useNavigate();
   const [Disabled, _Disabled] = useState(false);
@@ -143,61 +143,99 @@ function LoginForm() {
   const [usersList, setUsersList] = useState([""]);
   const [formData, setFormData] = useState({});
   const [name, setName] = useState("");
-  const[email, setEmail] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [list,setList] = useState([]);
-const [q1, setq1] = useState("");
-const [q2, setq2] = useState("");
-const [q3, setq3] = useState("");
-const [q4, setq4] = useState("");
-const [q5, setq5] = useState("");
-const [q6, setq6] = useState("");
-const [q7, setq7] = useState("");
-const [q8, setq8] = useState("");
-const [q9, setq9] = useState("");
-const [q10, setq10] = useState("");
-const [q11, setq11] = useState("");
-const [q12, setq12] = useState("");
-const [q13, setq13] = useState("");
-const [q14, setq14] = useState("");
-const [q15, setq15] = useState("");
-const [q16, setq16] = useState("");
-const [q17, setq17] = useState("");
-const [q18, setq18] = useState("");
-const [q19, setq19] = useState("");
-const [q20, setq20] = useState("");
- const stepsQuestions = {
-  2: [
-    { name: "company_name", placeholder: "Company Name", fun: setq1, var: q1 },
-    { name: "crNumber", placeholder: "Unified Number (CR)", fun: setq2, var: q2 },
-    { name: "Region", placeholder: "City / Region", fun: setq3, var: q3 },
-    { name: "isicSector", placeholder: "Sector (ISIC Classification)", fun: setq4, var: q4 },
-    { name: "employees", placeholder: "Number of Employees", type: "number", fun: setq5, var: q5 },
-    { name: "businessAge", placeholder: "Business Age (Years)", type: "number", fun: setq6, var: q6 },
-    { name: "revenueExpenses", placeholder: "Avg. Monthly Revenue and Expenses", fun: setq7, var: q7 },
-  ],
-};
+  const [list, setList] = useState([]);
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = useState("");
+  const [q1, setq1] = useState("");
+  const [q2, setq2] = useState("");
+  const [q3, setq3] = useState("");
+  const [q4, setq4] = useState("");
+  const [q5, setq5] = useState("");
+  const [q6, setq6] = useState("");
+  const [q7, setq7] = useState("");
+  const [q8, setq8] = useState("");
+  const [q9, setq9] = useState("");
+  const [q10, setq10] = useState("");
+  const [q11, setq11] = useState("");
+  const [q12, setq12] = useState("");
+  const [q13, setq13] = useState("");
+  const [q14, setq14] = useState("");
+  const [q15, setq15] = useState("");
+  const [q16, setq16] = useState("");
+  const [q17, setq17] = useState("");
+  const [q18, setq18] = useState("");
+  const [q19, setq19] = useState("");
+  const [q20, setq20] = useState("");
+  const stepsQuestions = {
+    2: [
+      {
+        name: "company_name",
+        placeholder: "Company Name",
+        fun: setq1,
+        var: q1,
+      },
+      {
+        name: "crNumber",
+        placeholder: "Unified Number (CR)",
+        fun: setq2,
+        var: q2,
+      },
+      { name: "Region", placeholder: "City / Region", fun: setq3, var: q3 },
+      {
+        name: "isicSector",
+        placeholder: "Sector (ISIC Classification)",
+        fun: setq4,
+        var: q4,
+      },
+      {
+        name: "employees",
+        placeholder: "Number of Employees",
+        type: "number",
+        fun: setq5,
+        var: q5,
+      },
+      {
+        name: "businessAge",
+        placeholder: "Business Age (Years)",
+        type: "number",
+        fun: setq6,
+        var: q6,
+      },
+      {
+        name: "revenueExpenses",
+        placeholder: "Avg. Monthly Revenue and Expenses",
+        fun: setq7,
+        var: q7,
+      },
+    ],
+  };
 
- const nosection1 = [
-  { label: "liquidity ratios", fun: setq8, var: q8 },
-  { label: "dept ratios", fun: setq9, var: q9 },
-  { label: "profit ability", fun: setq10, var: q10 },
-  { label: "operating cash flows", fun: setq11, var: q11 },
-  { label: "constracts with the last 5 suppliers and clients", fun: setq12, var: q12 },
-  { label: "Adminstrave ownership", fun: setq13, var: q13 },
-  { label: "business sector", fun: setq14, var: q14 },
-];
+  const nosection1 = [
+    { label: "liquidity ratios", fun: setq8, var: q8 },
+    { label: "dept ratios", fun: setq9, var: q9 },
+    { label: "profit ability", fun: setq10, var: q10 },
+    { label: "operating cash flows", fun: setq11, var: q11 },
+    {
+      label: "constracts with the last 5 suppliers and clients",
+      fun: setq12,
+      var: q12,
+    },
+    { label: "Adminstrave ownership", fun: setq13, var: q13 },
+    { label: "business sector", fun: setq14, var: q14 },
+  ];
 
-const financialQuestionsMapped = [
-  { label: "Monthly Revenue", fun: setq15, var: q15 },
-  { label: "Invoice Volume", fun: setq16, var: q16 },
-  { label: "Payment Timeliness (%)", fun: setq17, var: q17 },
-  { label: "Delays or Defaults", fun: setq18, var: q18 },
-  { label: "Current Liabilities / Loans", fun: setq19, var: q19 },
-  { label: "Bank Cash Balance (Optional)", fun: setq20, var: q20 },
-];
+  const financialQuestionsMapped = [
+    { label: "Monthly Revenue", fun: setq15, var: q15 },
+    { label: "Invoice Volume", fun: setq16, var: q16 },
+    { label: "Payment Timeliness (%)", fun: setq17, var: q17 },
+    { label: "Delays or Defaults", fun: setq18, var: q18 },
+    { label: "Current Liabilities / Loans", fun: setq19, var: q19 },
+    { label: "Bank Cash Balance (Optional)", fun: setq20, var: q20 },
+  ];
 
-//set
+  //submit
 
   const { register, handleSubmit } = useForm();
 
@@ -223,9 +261,8 @@ const financialQuestionsMapped = [
       _Disabled(false);
     }
   };
-  
-  const handleNext = () => {
 
+  const handleNext = () => {
     const hasUsername = updatedClients.some((client) => client.user);
     const hasEmail = updatedClients.some((client) => client.useremail);
     const hasPassword = updatedClients.some((client) => client.userpass);
@@ -237,7 +274,7 @@ const financialQuestionsMapped = [
       console.log(hasPassword, hasEmail, hasUsername, hasRole);
       alert("Please fill in all fields before continuing.");
     }
-  };//submit
+  }; //submit
   React.useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.ctrlKey && e.key === "k") {
@@ -263,30 +300,62 @@ const financialQuestionsMapped = [
     localStorage.setItem("usersList", JSON.stringify(usersList));
   }, [usersList]);
   const submit = () => {
+    setLoading(true);
+    setError(""); // تصفير الخطأ عند كل محاولة إرسال
 
-   const payload = {
-  companyEmail: email,
-  username: name,
-  password: password,
-  info: {
-    clientList: [{ name: "Client A" }] // ← أضف اسم عميل افتراضي أو من المستخدم
-  }
-};
-console.log(payload)
+    const payload = {
+      companyEmail: email,
+      username: name,
+      password: password,
+      info: {
+        clientList: [{ name: "Client A" }],
+      },
+    };
 
-
-    axios.post("https://alfatiha.onrender.com/companies", payload)
-      .then(res => {
-       navigate("/dashboard",{state:  payload} );
+    axios
+      .post("https://alfatiha.onrender.com/companies", payload)
+      .then((res) => {
+        navigate("/dashboard", { state: payload });
       })
-      .catch(err => {
-        console.error("❌ حصل خطأ:", err.response?.data || err.message);
-      });
-  
+      .catch((err) => {
+        if (err.response) {
+          const status = err.response.status;
+          const errorMessage = err.response.data?.error || "حدث خطأ غير متوقع";
 
-  };//formQ
+          if (status === 409) {
+            setError(`⚠️ ${errorMessage}`); // مثل: الشركة موجودة مسبقًا
+          } else {
+            setError(`❌ خطأ في إنشاء الشركة: ${errorMessage}`);
+          }
+        } else {
+          setError(`🚫 فشل الاتصال بالخادم: ${err.message}`);
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
   return (
     <>
+      {loading && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.7)",
+            zIndex: 9999,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Spinner animation="border" variant={"light"} />
+        </div>
+      )}
+
       {step === 1 ? (
         <Container
           fluid
@@ -329,36 +398,36 @@ console.log(payload)
 
               <Form className="w-100" style={{ maxWidth: "400px" }}>
                 <StyledWrapper className="mb-4">
-  <Form.Control
-  type="text"
-  placeholder="Username"
-  value={name}
-  onChange={(e) => setName(e.target.value)}
-  className="input bg-dark text-light border-secondary mb-4"
-/>
+                  <Form.Control
+                    type="text"
+                    placeholder="Username"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="input bg-dark text-light border-secondary mb-4"
+                  />
 
-<Form.Control
-  type="email"
-  placeholder="Email"
-  value={email}
-  onChange={(e) => setEmail(e.target.value)}
-  className="input bg-dark text-light border-secondary mb-4"
-/>
+                  <Form.Control
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="input bg-dark text-light border-secondary mb-4"
+                  />
 
-<Form.Control
-  type="password"
-  placeholder="Password"
-  value={password}
-  onChange={(e) => setPassword(e.target.value)}
-  className="input bg-dark text-light border-secondary mb-4"
-/>
-
-
-  
+                  <Form.Control
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="input bg-dark text-light border-secondary mb-4"
+                  />
                 </StyledWrapper>
 
                 <Love className="">
                   <Row>
+                    
+                    {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
+                    
                     <Col className="d-flex align-items-center flex-column">
                       <label className="fw-bold fs-5 text-light">
                         Select your role
@@ -441,8 +510,7 @@ console.log(payload)
                   onClick={() => {
                     if (Role === "Discoverable" || Role === "Verifier") {
                       _setP("select role to login ");
-                      setStep(step+1)
-
+                      setStep(step + 1);
                     } else if (Role === "Reviewer") {
                       submit();
                     }
