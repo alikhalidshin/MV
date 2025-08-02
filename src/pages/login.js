@@ -54,25 +54,26 @@ function LoginPage() {
       const result = await response.json();
 
       if (!response.ok) {
-        if (response.status === 404) {
-          setErrorMessage("🚫 الشركة غير موجودة. تأكد من البريد الإلكتروني.");
-        } else if (response.status === 401) {
-          setErrorMessage("🔐 كلمة السر غير صحيحة.");
-        } else {
-          setErrorMessage("❌ حدث خطأ غير متوقع. حاول لاحقاً.");
-        }
-        setIsLoading(false);
-        return;
-      }
+  if (response.status === 404) {
+    setErrorMessage("🚫 Company not found. Please check the email.");
+  } else if (response.status === 401) {
+    setErrorMessage("🔐 Incorrect password.");
+  } else {
+    setErrorMessage("❌ An unexpected error occurred. Please try again later.");
+  }
+  setIsLoading(false);
+  return;
+}
 
-      alert(JSON.stringify(result));
-      navigate("/dashboard", { state: result.company });
-    } catch (error) {
-      console.error("فشل الاتصال بالخادم:", error);
-      setErrorMessage("❌ تعذر الاتصال بالسيرفر.");
-    } finally {
-      setIsLoading(false);
-    }
+alert(JSON.stringify(result));
+navigate("/dashboard", { state: result.company });
+} catch (error) {
+  console.error("Failed to connect to the server:", error);
+  setErrorMessage("❌ Unable to connect to the server.");
+} finally {
+  setIsLoading(false);
+}
+
   };
 
   return (
