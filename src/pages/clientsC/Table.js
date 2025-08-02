@@ -59,14 +59,11 @@ const localCompanies = localDataRaw ? JSON.parse(localDataRaw) : [];
 const propCompanies = Array.isArray(prop.report?.data) ? prop.report.data : [];
 
 // دمج البيانات وتصفية التكرار على أساس الاسم مثلاً
-const mergedCompanies = [...localCompanies, ...propCompanies].reduce((acc, current) => {
-  const exists = acc.find(c => c.name === current.name);
-  if (!exists) acc.push(current);
-  return acc;
-}, []);
 
-const companies = mergedCompanies;  const type = prop.type;
-  const sta = [...clients_added,...companies].filter(x=> {
+
+const companies = propCompanies;
+  const type = prop.type;
+  const sta = [...companies,...clients_added].filter(x=> {
     
     if (x.status === type) return x;}
    
@@ -164,7 +161,7 @@ const companies = mergedCompanies;  const type = prop.type;
   return (
     <>
       {type === 'in Stack' && renderTable(updatedClients)}
-      {type === 'All' && renderTable([...companies, ...updatedClients])}
+      {type === 'All' && renderTable([ ...updatedClients,...companies])}
       {['Approved', 'Rejected', 'Review'].includes(type) && renderTable(sta)}
 
      <Modal show={showModal} onHide={() => setShowModal(false)} backdrop="static">
