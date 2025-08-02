@@ -148,7 +148,9 @@ function Allclients() {
   const crmSystems = ["Sales force", "HubSpot", "Zoho", "pipedrive"];
   
 const [hasERP, sethasERP] = useState("");
-const [q1, setq1] = useState("");
+
+
+ const [q1, setq1] = useState("");
 const [q2, setq2] = useState("");
 const [q3, setq3] = useState("");
 const [q4, setq4] = useState("");
@@ -246,6 +248,7 @@ const financialQuestionsMapped = [
   // بيانات الجدول والعملاء
   const [updatedClients, setUpdatedClients] = useState([]);
   const [Tables, setTables] = useState([]);
+
   const [report, setReport] = useState([]);
   const [table, setTable] = useState("");
   const [sta, setsta] = useState("");
@@ -289,7 +292,7 @@ const financialQuestionsMapped = [
         setReport(response.data);
       })
       .catch((error) => {
-        alert("❌ حصل خطأ في جلب التقارير");
+        alert("some thing went wrong");
         console.error(error);
       })
       .finally(() => {
@@ -310,7 +313,7 @@ const financialQuestionsMapped = [
     },
   ];
 
-  // دوال مودال العميل الجديد
+  // دوال مودال العميل الجديد loading
   const handleClose = () => {
     setShow(false);
     setStep(2);
@@ -527,7 +530,7 @@ const handleSubmit = () => {
           {step === 2 && (
             <>
               <div className="mb-3 d-flex justify-content-between p-4">
-                <h1 className="text-dark">Verifier <span>Form</span> </h1>
+                <h1 className="text-dark">Analysis <span>Form</span> </h1>
                 <div>
                   <Button
                     onClick={() => setStep(step + 1)}

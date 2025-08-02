@@ -172,15 +172,36 @@ function Home() {
       </Container>
       <Container
         fluid
+        className="d-flex justify-content-center align-items-center text-center"
+        style={{
+          background: "linear-gradient(to right, #f0f0f0, #FFFDFDFF)",
+        }}
+      >
+       
+       <Row className="d-flex align-items-center justify-content-center mt-5 w-100">
+  <Col xs={4} className="d-none d-md-block">
+    <hr style={{ borderTop: "2px solid #999" }} />
+  </Col>
+
+  <Col xs={12} md="auto" className="text-center">
+    <h1 className="fw-bold">Features</h1>
+  </Col>
+
+  <Col xs={4} className="d-none d-md-block">
+    <hr style={{ borderTop: "2px solid #999" }} />
+  </Col>
+</Row></Container>
+      <Container
+        fluid
         className=""
         style={{
           height: "100vh",
           background: "linear-gradient(to right, #f0f0f0, #FFFDFDFF)",
         }}
       >
-        <Row className="d-flex  justify-content-between">
+        <Row className="d-flex w-100  justify-content-between">
           <Slide
-            direction="left"
+            direction="right"
             className="col d-flex justify-content-center"
             delay={300}
             duration={1000}
@@ -189,9 +210,7 @@ function Home() {
               <div className="    cards">
                 <div className="content">
                   <p className="heading">Explainable AI</p>
-                  <p className="para">
-                    AI-Powered Credit Decisions You Can Trust
-                  </p>
+                 
                   <p className="para para-sm">
                     Basira uses cutting-edge techniques like SHAP and LIME to
                     explain every credit decision transparently. Know exactly
@@ -229,7 +248,7 @@ function Home() {
           </Slide>
           <Slide
             className="col  d-flex justify-content-center"
-            direction="right"
+            direction="left"
             delay={300}
             duration={1000}
           >
@@ -249,6 +268,17 @@ function Home() {
             </StyledWrapper>
           </Slide>
         </Row>
+        <Row className="d-flex justify-content-center mt-5">
+  <Slide direction="up" delay={300} duration={1000} className="col-10">
+    <div>
+      <h2 className="fw-bold mb-3 text-center">Baseera Platform</h2>
+      <p className="lead text-center">
+        Baseera is a smart credit insight platform for Saudi companies. It integrates with ERP/CRM systems and official data sources such as SIMAH and the Ministry of Justice, using ISIC-based scoring and machine learning to provide tailored credit risk analysis by sector.
+      </p>
+    </div>
+  </Slide>
+</Row>
+
       </Container>
     </div>
   );

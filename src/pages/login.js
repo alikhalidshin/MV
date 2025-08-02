@@ -65,7 +65,6 @@ function LoginPage() {
   return;
 }
 
-alert(JSON.stringify(result));
 navigate("/dashboard", { state: result.company });
 } catch (error) {
   console.error("Failed to connect to the server:", error);

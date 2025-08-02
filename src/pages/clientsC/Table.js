@@ -13,7 +13,7 @@ function getRiskBadge(risk) {
     rev: 'secondary'
   };
   return <Badge bg={map[risk] || 'secondary'}>{risk}</Badge>;
-}
+}//added
 
 function evaluateClientAnswers(client, modelAnswers) {
   const result = {
