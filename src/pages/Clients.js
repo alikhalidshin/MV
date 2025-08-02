@@ -48,7 +48,7 @@ class Sub extends Component {
           <Col className="d-flex justify-content-between d-flex align-content-center"
          
           >
-            <p className="fs-1">User </p>
+            <p className="fs-1">LWS </p>
             <div className="flex-grow-1 d-flex justify-content-end align-items-center">
             <Button className="m-1" onClick={()=>this.setState({showpop:true , lovely:"openBanking"})}> open banking </Button>
             <Button className="m-1" onClick={()=>this.setState({showpop:true , lovely:"Wathiq"})}> wathiq</Button>
