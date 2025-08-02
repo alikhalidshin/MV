@@ -27,7 +27,7 @@ const Love = Styled.div`/* From Uiverse.io by Na3ar-17 */
     padding: 10px;
     border-radius: 10px;
     outline: none;
-    color: white;
+    color: black;
   }
 
   .input:focus {
