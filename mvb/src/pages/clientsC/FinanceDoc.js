@@ -5,6 +5,7 @@ import { Button } from 'react-bootstrap';
 import  Form from 'react-bootstrap/Form';
 import { Modal } from 'react-bootstrap';
 import styled from 'styled-components';
+import "./some.css"
 const Love = styled.div`
 ::placeholder {
   color: #3B3B3BFF !important; /* أو أي لون يناسبك */
@@ -43,14 +44,14 @@ Form            </p>
 
                 <Row className="mb-3">
                   <Col><Form.Control name="name" placeholder="company name" onChange={handleChange} /></Col>
-                  <Col><Form.Control name="crNumber" placeholder="Unified Number " onChange={handleChange} /></Col>
+                  <Col><Form.Control name="CR Number" placeholder="CR Number " onChange={handleChange} /></Col>
                 </Row>
                 <Row className="mb-3">
                   <Col><Form.Control name="Bank name" placeholder="Bank" onChange={handleChange} /></Col>
-                  <Col><Form.Control name="Acount Name" placeholder="Acount Name " onChange={handleChange} /></Col>
+                  <Col><Form.Control name="Secter" placeholder="Acount Name " onChange={handleChange} /></Col>
                 </Row>
                 <Row className="mb-3">
-                  <Col><Form.Control name="UN" placeholder="Bank Acount Number " onChange={handleChange} /></Col>
+                  <Col><Form.Control name="UN" placeholder="IBAN Number" onChange={handleChange} /></Col>
                 </Row>
              
             </Form>

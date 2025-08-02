@@ -30,13 +30,17 @@ function LoginPage() {
   const navigate = useNavigate();
   const [companyEmail, setCompanyEmail] = useState("");
   const [password, setPassword] = useState("");
-  console.log(companyEmail,password)
-  console.log(JSON.stringify({ companyEmail, password }))
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleLogin = async () => {
     if (!companyEmail || !password) {
-      alert("⚠️ الرجاء إدخال البريد الإلكتروني وكلمة السر");
+      setErrorMessage("⚠️ الرجاء إدخال البريد الإلكتروني وكلمة السر");
       return;
     }
+
+    setErrorMessage("");
+    setIsLoading(true);
 
     try {
       const response = await fetch("https://alfatiha.onrender.com/login", {
@@ -46,32 +50,29 @@ function LoginPage() {
         },
         body: JSON.stringify({ companyEmail, password }),
       });
-      
 
       const result = await response.json();
 
       if (!response.ok) {
-        if (response.status === 404) {
-          alert("🚫 الشركة غير موجودة. تأكد من البريد الإلكتروني.");
-        } else if (response.status === 401) {
-          alert("🔐 كلمة السر غير صحيحة.");
-        } else {
-          alert("❌ حدث خطأ غير متوقع. حاول لاحقاً.");
-        }
-        return;
-      }
+  if (response.status === 404) {
+    setErrorMessage("🚫 Company not found. Please check the email.");
+  } else if (response.status === 401) {
+    setErrorMessage("🔐 Incorrect password.");
+  } else {
+    setErrorMessage("❌ An unexpected error occurred. Please try again later.");
+  }
+  setIsLoading(false);
+  return;
+}
 
-      alert(JSON.stringify(result));
-      navigate("/dashboard",{state: result.company})
-      
-      console.log("معلومات الشركة:", result.company);
+navigate("/dashboard", { state: result.company });
+} catch (error) {
+  console.error("Failed to connect to the server:", error);
+  setErrorMessage("❌ Unable to connect to the server.");
+} finally {
+  setIsLoading(false);
+}
 
-      // إذا تبغى تخزن البيانات لاحقًا:
-      // localStorage.setItem("companyData", JSON.stringify(result.company));
-    } catch (error) {
-      console.error("فشل الاتصال بالخادم:", error);
-      alert("❌ تعذر الاتصال بالسيرفر.");
-    }
   };
 
   return (
@@ -97,8 +98,7 @@ function LoginPage() {
           <div className="text-center mb-4">
             <h1 className="mt-4 fs-3 fw-semibold text-white">Welcome back</h1>
             <p className="text-secondary mt-2">
-              أدخل بيانات الشركة للمتابعة.
-            </p>
+Enter Login Data            </p>
           </div>
 
           <Form className="w-100" style={{ maxWidth: "400px" }}>
@@ -124,9 +124,23 @@ function LoginPage() {
               variant="outline-light"
               className="w-100 py-2"
               onClick={handleLogin}
+              disabled={isLoading}
             >
-              Login <span className="ms-2">➤</span>
+              {isLoading ? (
+                <span
+                  className="spinner-border spinner-border-sm text-light"
+                  role="status"
+                />
+              ) : (
+                <>
+                  Login <span className="ms-2">➤</span>
+                </>
+              )}
             </Button>
+
+            {errorMessage && (
+              <p className="text-danger mt-3 text-center">{errorMessage}</p>
+            )}
           </Form>
         </Col>
       </Row>

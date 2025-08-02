@@ -23,11 +23,11 @@ const Love = Styled.div`/* From Uiverse.io by Na3ar-17 */
     .input {
 
     min-width: 100%;
-    background-color: #1a1a1a;
+    background-color: #FFFFFFFF;
     padding: 10px;
     border-radius: 10px;
     outline: none;
-    color: white;
+    color: black;
   }
 
   .input:focus {
@@ -35,11 +35,11 @@ const Love = Styled.div`/* From Uiverse.io by Na3ar-17 */
   }
 
   @keyframes rotateShadow {
-    0% { box-shadow: -2px -2px 8px 1px #aa00ff, 2px 2px 8px 1px #3700ff; }
-    25% { box-shadow: -2px 2px 8px 1px #aa00ff, 2px -2px 8px 1px #3700ff; }
-    50% { box-shadow: 2px 2px 8px 1px #aa00ff, -2px -2px 8px 1px #3700ff; }
-    75% { box-shadow: 2px -2px 8px 1px #aa00ff, -2px 2px 8px 1px #3700ff; }
-    100% { box-shadow: -2px -2px 8px 1px #aa00ff, 2px 2px 8px 1px #3700ff; }
+    0% { box-shadow: -1px -1px 8px 1px #00D4FF, 2px 2px 8px 1px #00D4FF; }
+    25% { box-shadow: -1px 1px 8px 3px #00D4FF, 2px -2px 8px 1px #00D4FF; }
+    50% { box-shadow: 1px 1px 5px 4px #00D4FF, -2px -2px 8px 1px #00D4FF; }
+    75% { box-shadow: 1px -1px 8px 1px #00D4FF, -2px 2px 8px 1px #00D4FF; }
+    100% { box-shadow: -1px -1px 5px 1px #00D4FF, 2px 2px 8px 1px #00D4FF; }
   }
 
 .radio-input {
@@ -84,7 +84,7 @@ const Love = Styled.div`/* From Uiverse.io by Na3ar-17 */
 }
 
 .radio-input .label:has(input:checked)::before {
-  background-color: #2d3750;
+  background-color: #502D32FF;
   border-color: #435dd8;
   height: 50px;
 }
@@ -134,7 +134,7 @@ const Love = Styled.div`/* From Uiverse.io by Na3ar-17 */
   }
 }
 
-`;//add
+`;//table
 
 function Allclients() {
   const [formDataa, setFormDataa] = useState({});
@@ -148,7 +148,9 @@ function Allclients() {
   const crmSystems = ["Sales force", "HubSpot", "Zoho", "pipedrive"];
   
 const [hasERP, sethasERP] = useState("");
-const [q1, setq1] = useState("");
+
+
+ const [q1, setq1] = useState("");
 const [q2, setq2] = useState("");
 const [q3, setq3] = useState("");
 const [q4, setq4] = useState("");
@@ -170,17 +172,52 @@ const [q19, setq19] = useState("");
 const [q20, setq20] = useState("");
 const [loading, setLoading] = useState("");
 
-  const stepsQuestions = {
-  2: [
-    { name: "company_name", placeholder: "Company Name", fun: setq1, var: q1 },
-    { name: "crNumber", placeholder: "Unified Number (CR)", fun: setq2, var: q2 },
-    { name: "Region", placeholder: "City / Region", fun: setq3, var: q3 },
-    { name: "isicSector", placeholder: "Sector (ISIC Classification)", fun: setq4, var: q4 },
-    { name: "employees", placeholder: "Number of Employees", type: "number", fun: setq5, var: q5 },
-    { name: "businessAge", placeholder: "Business Age (Years)", type: "number", fun: setq6, var: q6 },
-    { name: "revenueExpenses", placeholder: "Avg. Monthly Revenue and Expenses", fun: setq7, var: q7 },
-  ],
-};
+   const stepsQuestions = {
+    3: [
+      {
+        name: "isicSector",
+        placeholder: "Sector (ISIC Classification)",
+        fun: setq4,
+        var: q4,
+      },
+      {
+        name: "employees",
+        placeholder: "Number of Employees",
+        type: "number",
+        fun: setq5,
+        var: q5,
+      },
+      {
+        name: "businessAge",
+        placeholder: "Business Age (Years)",
+        type: "number",
+        fun: setq6,
+        var: q6,
+      },
+    ],
+    2: [
+      {
+        name: "company_name",
+        placeholder: "Company Name",
+        fun: setq1,
+        var: q1,
+      },
+      {
+        name: "crNumber",
+        placeholder: "Unified Number (CR)",
+        fun: setq2,
+        var: q2,
+      },
+      { name: "Region", placeholder: "City / Region", fun: setq3, var: q3 },
+    ],
+    4: {
+      name: "revenue Expenses",
+      placeholder: "Avg. Monthly Revenue and Expenses",
+      fun: setq7,
+      var: q7,
+    },
+  };
+
 
  const nosection1 = [
   { label: "liquidity ratios", fun: setq8, var: q8 },
@@ -210,7 +247,8 @@ const financialQuestionsMapped = [
   //   };
   // بيانات الجدول والعملاء
   const [updatedClients, setUpdatedClients] = useState([]);
-  const [Tables, setTables] = useState([""]);
+  const [Tables, setTables] = useState([]);
+
   const [report, setReport] = useState([]);
   const [table, setTable] = useState("");
   const [sta, setsta] = useState("");
@@ -254,7 +292,7 @@ const financialQuestionsMapped = [
         setReport(response.data);
       })
       .catch((error) => {
-        alert("❌ حصل خطأ في جلب التقارير");
+        alert("some thing went wrong");
         console.error(error);
       })
       .finally(() => {
@@ -275,7 +313,7 @@ const financialQuestionsMapped = [
     },
   ];
 
-  // دوال مودال العميل الجديد
+  // دوال مودال العميل الجديد loading
   const handleClose = () => {
     setShow(false);
     setStep(2);
@@ -292,9 +330,13 @@ const financialQuestionsMapped = [
   //Table
 const handleSubmit = () => {
   const x = [
-    ...nosection1,
-    ...stepsQuestions[2],
+      ...nosection1,
+      ...stepsQuestions[2],
+      ...stepsQuestions[3],
+      ...[stepsQuestions[4]],
+      ...[{"hasERP": hasERP}],
     ...financialQuestionsMapped,
+
   ];
 
   console.log("all fields:", x);
@@ -435,7 +477,7 @@ const handleSubmit = () => {
             className="h-100"
           >
             <Dropdown.Item onClick={() => setShow(true)}>
-              Add New Client
+              Add New analysis
             </Dropdown.Item>
             <Dropdown.Item onClick={() => setleenShow(true)}>LWS</Dropdown.Item>
             <Dropdown.Item onClick={() => setShowPolicy(true)}>
@@ -477,24 +519,22 @@ const handleSubmit = () => {
         </div>
 
         {/* Modal: Add New Client */}
-        <Modal show={false} centered className="p-4">
-          ssss
-        </Modal>
+       
 
         <Modal
           size="xl"
-          contentClassName=""
+          contentClassName="p-4 bg-light"
           show={show}
           onHide={handleClose}
         >
           {step === 2 && (
             <>
-              <div className="mb-3 d-flex justify-content-between">
-                <h1 className="text-dark">Verifier Form</h1>
+              <div className="mb-3 d-flex justify-content-between p-4">
+                <h1 className="text-dark">Analysis <span>Form</span> </h1>
                 <div>
                   <Button
                     onClick={() => setStep(step + 1)}
-                    variant="outline-info"
+                    variant="info"
                   >
                     Next <GrNext />
                   </Button>
@@ -508,34 +548,65 @@ const handleSubmit = () => {
                     handleSubmit(); // أو أي دالة معالجة للـ Submit تحب تضيفها
                   }}
                 >
-                  {stepsQuestions[2].map((field, idx) => (
-                    <Row className="mb-3" key={idx}>
-                      <Col>
-                        <Form.Control
-                          onChange={(e) =>
-                           field.fun(e.target.value)
-                          }
-                          name={field.name}
-                          className="input"
-                          placeholder={field.placeholder}
-                          type={field.type || "text"}
-                        />
+                  <Row className="  mb-3">
+                      <Col className="me-2">
+                        <Row>
+                          {stepsQuestions[2].map((e) => {
+                            return (
+                              <Form.Control
+                                onChange={(el) => e.fun(el.target.value)}
+                                className="input mb-2"
+                                name={`${e.name}`}
+                                placeholder={e.name}
+                              />
+                            );
+                          })}
+                        </Row>
+                      </Col>
+                      <Col className=" ms-2">
+                        <Row>
+                          {stepsQuestions[3].map((e) => {
+                            return (
+                              <Form.Control
+                                onChange={(el) => e.fun(el.target.value)}
+                                className="input mb-2"
+                                name={`${e.name}`}
+                                placeholder={e.name}
+                              />
+                            );
+                          })}
+                        </Row>
+                        
                       </Col>
                     </Row>
-                  ))}
 
-                  <Row className="mb-3">
+                    
+
+                     <Row>
+                                          <Form.Control
+                                            onChange={(el) =>
+                                              stepsQuestions[4].fun(el.target.value)
+                                            }
+                                            className="input mb-2"
+                                            name={`${stepsQuestions[4].name}`}
+                                            placeholder={stepsQuestions[4].name}
+                                          />
+                                        </Row>
+                  <Row className="mb-3 p-4 ">
+                    
                     <Col>
                       <Form.Select
                         onChange={(e) => {
-                          add({ ERP: e.target.value }, "no");
+                          add({ ERP: e.target.value //input
+
+                          }, "no");
                           sethasERP(e.target.value);
                         }}
-                        className="input text-dark border-1"
+                        className="text-dark border-1"
                       >
-                        <option value="">Do You Use ERP/CRM System?</option>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
+                        <option value="" className="text-dark">Do You Use ERP/CRM System?</option>
+                        <option value="yes" className="text-dark">Yes</option>
+                        <option value="no" className="text-dark">No</option>
                       </Form.Select>
                     </Col>
                   </Row>
@@ -545,13 +616,13 @@ const handleSubmit = () => {
                       <label className="text-dark fs-4 mb-4">
                         Finan Statements for last three years
                       </label>
-                      <Drag />
+                      <Drag isLight={true} />
                     </Col>
                     <Col className="d-flex flex-column align-items-center">
                       <label className="text-dark fs-4 mb-4">
                         Audit report
                       </label>
-                      <Drag />
+                      <Drag isLight={true} />
                     </Col>
                   </Row>
                 </Form>
@@ -713,7 +784,7 @@ const handleSubmit = () => {
         </Modal>
 
         {/* Modal: FFF (السياسات) */}
-        <Modal size="xl" show={showPolicy} onHide={() => setShowPolicy(false)}>
+        <Modal size="xl" show={showPolicy} contentClassName="bg-light p-4" onHide={() => setShowPolicy(false)}>
           <Modal.Header closeButton />
           <FFF
             scores={scores}

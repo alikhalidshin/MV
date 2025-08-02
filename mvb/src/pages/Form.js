@@ -138,7 +138,7 @@ function LoginForm() {
   const navigate = useNavigate();
   const [Disabled, _Disabled] = useState(false);
   const [updatedClients, _updatted] = useState([]);
-  const [Role, setRole] = useState(null);
+  const [Role, setRole] = useState("Reviewer");
   const [step, setStep] = useState(1);
   const [usersList, setUsersList] = useState([""]);
   const [formData, setFormData] = useState({});
@@ -428,78 +428,7 @@ function LoginForm() {
                     
                     {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
                     
-                    <Col className="d-flex align-items-center flex-column">
-                      <label className="fw-bold fs-5 text-light">
-                        Select your role
-                      </label>
-                      <div>
-                        <span>{p}</span>
-                      </div>
-                    </Col>
-                    <Col>
-                      <div className="radio-input">
-                        <label
-                          className={`label ${
-                            Role === "Discoverable" ? "selected" : ""
-                          }`}
-                        >
-                          <input
-                            type="radio"
-                            id="value-1"
-                            name="value-radio"
-                            defaultValue="value-1"
-                            onBlur={() => {
-                              setRole("Discoverable");
-                              add({ role: "Discoverable" }, "end");
-                              _setP(
-                                "Enable this role to bee discoverable by other users."
-                              );
-                            }}
-                          />
-                          <p className="text">Discoverable</p>
-                        </label>
-                        <label
-                          className={`label ${
-                            Role === "Reviewer" ? "selected" : ""
-                          }`}
-                        >
-                          <input
-                            type="radio"
-                            id="value-2"
-                            name="value-radio"
-                            defaultValue="value-2"
-                            onBlur={() => {
-                              setRole("Reviewer");
-                              add({ role: "Reviewer" }, "end");
-                              _setP(
-                                "Enable this role if you want to use our full System for analysing other companies"
-                              );
-                            }}
-                          />
-                          <p className="text">Company Reviewer</p>
-                        </label>
-                        <label
-                          className={`label ${
-                            Role === "Verifier" ? "selected" : ""
-                          }`}
-                        >
-                          <input
-                            type="radio"
-                            id="value-3"
-                            name="value-radio"
-                            defaultValue="value-3"
-                            onBlur={() => {
-                              setRole("Verifier");
-                              add({ role: "Verifier" }, "end");
-                              _setP(
-                                "Enable this role if you want verify the identity of a specific company."
-                              );
-                            }}
-                          />
-                          <p className="text">Verifier</p>
-                        </label>
-                      </div>
-                    </Col>
+                    
                   </Row>
                 </Love>
 

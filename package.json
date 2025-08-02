@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "method-override": "^3.0.0",
     "react-circular-progressbar": "^2.2.0"
   }
 }

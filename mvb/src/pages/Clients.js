@@ -45,8 +45,10 @@ class Sub extends Component {
       <Row>
       <div className="d-flex flex-column p-4" style={{ height: "100vh" }}>
         <Row>
-          <Col className="d-flex justify-content-between d-flex align-content-center">
-            <p className="fs-1">User </p>
+          <Col className="d-flex justify-content-between d-flex align-content-center"
+         
+          >
+            <p className="fs-1">LWS </p>
             <div className="flex-grow-1 d-flex justify-content-end align-items-center">
             <Button className="m-1" onClick={()=>this.setState({showpop:true , lovely:"openBanking"})}> open banking </Button>
             <Button className="m-1" onClick={()=>this.setState({showpop:true , lovely:"Wathiq"})}> wathiq</Button>
@@ -56,18 +58,16 @@ class Sub extends Component {
         </Row>
 
         <Row className="flex-grow-1">
-          <Col className="border-end border-top p-4">
+          <Col 
+           xxl={6}
+          xl={6}
+          lg={6}
+          md={6}
+          className="border-end border-top p-4">
             <Row>
               <p className="fs-3">Finance over view</p>
             </Row>
-            <Row>
-              <Col className="float-start">
-                <span className="fs-4">Manual</span>
-              </Col>
-              <Col className="float-start">
-                <a className="fs-4 text-decoration-none">Optional</a>
-              </Col>
-            </Row>
+            
             <Graphs />
             <FinanceDoc />
           </Col>
@@ -101,6 +101,7 @@ class Sub extends Component {
                       <option value="Odoo">Tink</option>
                       <option value="SAP">True layer</option>
                       <option value="Salesforce">yodle</option>
+                      <option value="lean">lean</option>
                     </Form.Select>
                   </Col>
                   </>)}
